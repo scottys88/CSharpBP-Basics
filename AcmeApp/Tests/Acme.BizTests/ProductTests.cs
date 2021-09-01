@@ -44,6 +44,35 @@ namespace Acme.Biz.Tests
             // Assert
             Assert.AreEqual(expected, actual);
         }
-    
+        [TestMethod]
+        public void SayHello_ObjectInitializer()
+        {
+            var currentProduct = new Product()
+            {
+                ProductId = 1,
+                ProductName = "Saw",
+                ProductDescription = "A wood saw"
+            };
+
+            var expected = $"Hello {currentProduct.ProductName} {currentProduct.ProductId}: {currentProduct.ProductDescription}";
+
+            var actual = currentProduct.SayHello();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Product_Null()
+        {
+            Product currentProduct = null;
+            var companyName = currentProduct?.ProductVendor?.CompanyName;
+
+            string expected = null;
+
+            var actual = companyName;
+
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }

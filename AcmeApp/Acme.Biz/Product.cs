@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Acme.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Acme.Biz
 {
@@ -49,8 +51,25 @@ namespace Acme.Biz
             set { productId = value; }
         }
 
+        private Vendor productVendor;
+
+        public Vendor ProductVendor
+        {
+            get { 
+                if(productVendor == null)
+                {
+                    productVendor = new Vendor();
+                }
+                return productVendor; 
+            }
+            set { productVendor = value; }
+        }
+
+
         public string SayHello()
         {
+            var emailService = new EmailService();
+            var hey = LoggingService.LogAction("hey");
             return $"Hello {ProductName} {ProductId}: {ProductDescription}";
         }
 
