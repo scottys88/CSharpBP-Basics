@@ -14,12 +14,11 @@ namespace Acme.Common.Tests
         [TestMethod()]
         public void LogAction_Success()
         {
-            // Arrange
-            var loggingService = new LoggingService();
+            // Arrange            
             var expected = "Action: Test Action";
 
             // Act
-            var actual = loggingService.LogAction("Test Action");
+            var actual = LoggingService.LogAction("Test Action");
 
             // Assert
             Assert.AreEqual(expected, actual);

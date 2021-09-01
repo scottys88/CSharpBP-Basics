@@ -11,6 +11,7 @@ namespace Acme.Biz.Tests
     [TestClass()]
     public class VendorTests
     {
+
         [TestMethod()]
         public void SendWelcomeEmail_ValidCompany_Success()
         {
