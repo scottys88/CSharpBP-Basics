@@ -21,7 +21,7 @@ namespace Acme.Biz.Tests
                 ProductName = "Saw",
                 ProductId = 1
             };
-            var expected = $"Hello {currentProduct.ProductName} {currentProduct.ProductId}: {currentProduct.ProductDescription}";
+            var expected = $"Hello {currentProduct.ProductName} {currentProduct.ProductId}: {currentProduct.ProductDescription}, Available on: ";
 
             // Act
             var actual = currentProduct.SayHello();
@@ -35,7 +35,7 @@ namespace Acme.Biz.Tests
         {
             // Arrange
             var currentProduct = new Product(1, "Saw", "A wood saw");
-            var expected = $"Hello {currentProduct.ProductName} {currentProduct.ProductId}: {currentProduct.ProductDescription}";
+            var expected = $"Hello {currentProduct.ProductName} {currentProduct.ProductId}: {currentProduct.ProductDescription}, Available on: ";
 
             // Act
             var actual = currentProduct.SayHello();
@@ -54,7 +54,7 @@ namespace Acme.Biz.Tests
                 ProductDescription = "A wood saw"
             };
 
-            var expected = $"Hello {currentProduct.ProductName} {currentProduct.ProductId}: {currentProduct.ProductDescription}";
+            var expected = $"Hello {currentProduct.ProductName} {currentProduct.ProductId}: {currentProduct.ProductDescription}, Available on: ";
 
             var actual = currentProduct.SayHello();
 
@@ -74,5 +74,36 @@ namespace Acme.Biz.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void ConvertMetersToInchesTest()
+        {
+            var expected = 78.74;
+
+            var actual = 2 * Product.InchesPerMeter;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void MinumumPriceTest_Default()
+        {
+            var currentProduct = new Product();
+            var expected = .96m;
+
+            var actual = currentProduct.MinimumPrice;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void MinimumPriceTest_Bulk()
+        {
+            var currentProduct = new Product(1, "Bulk Saws", "Some saws");
+            var expected = 9.99m;
+
+            var actual = currentProduct.MinimumPrice;
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

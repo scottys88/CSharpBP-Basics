@@ -13,9 +13,11 @@ namespace Acme.Biz
     /// </summary>
     public class Product
     {
+        public const double InchesPerMeter = 39.37;
+        public readonly decimal MinimumPrice;
         public Product()
         {
-
+            this.MinimumPrice = .96m;
         }
 
         public Product(int productId, 
@@ -24,7 +26,11 @@ namespace Acme.Biz
         {
             this.ProductName = productName;
             this.ProductId = productId;
-            this.ProductDescription = description;            
+            this.ProductDescription = description;
+            if (productName.StartsWith("Bulk"))
+            {
+                this.MinimumPrice = 9.99m;
+            }
         }
 
         private string productName;
@@ -65,12 +71,21 @@ namespace Acme.Biz
             set { productVendor = value; }
         }
 
+        private DateTime? availabilityDate;
+
+        public DateTime? AvailabilityDate
+        {
+            get { return availabilityDate; }
+            set { availabilityDate = value; }
+        }
+
+
 
         public string SayHello()
         {
             var emailService = new EmailService();
             var hey = LoggingService.LogAction("hey");
-            return $"Hello {ProductName} {ProductId}: {ProductDescription}";
+            return $"Hello {ProductName} {ProductId}: {ProductDescription}, Available on: {AvailabilityDate?.ToShortDateString()}";
         }
 
 
