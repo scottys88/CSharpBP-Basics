@@ -105,5 +105,103 @@ namespace Acme.Biz.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void ProductName_Format()
+        {
+            var currentProduct = new Product();
+            currentProduct.ProductName = " A big Hammer ";
+            var expected = "A big Hammer";
+
+            var actual = currentProduct.ProductName;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ProductName__TooLong()
+        {
+            var currentProduct = new Product();
+            currentProduct.ProductName = "A long time ago in a galaxy far, far away.";
+            var expectedValidation = "Product Name cannot be more than 20 characters";
+            string expectedProductName = null;
+
+            var actual = currentProduct.ValidationMessage;
+
+            Assert.AreEqual(expectedValidation, actual);
+            Assert.AreEqual(expectedProductName, currentProduct.ProductName);
+        }
+        [TestMethod]
+        public void ProductName__TooShort()
+        {
+            var currentProduct = new Product();
+            currentProduct.ProductName = "12";
+            var expected = "Product Name must be at least 3 characters";
+            string expectedProductName = null;
+
+            var actual = currentProduct.ValidationMessage;
+
+            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedProductName, currentProduct.ProductName);
+        }
+        [TestMethod]
+        public void ProductName_JustRight()
+        {
+            var currentProduct = new Product();
+            currentProduct.ProductName = "Bandsaw";
+            string expected = null;
+            string expectedProductName = "Bandsaw";
+
+            var actual = currentProduct.ValidationMessage;
+
+            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedProductName, currentProduct.ProductName);
+        }
+
+        [TestMethod]
+        public void Category_DefaultValue()
+        {
+            var currentProduct = new Product();
+            var expected = "Tools";
+
+            var actual = currentProduct.Category;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Category_NewValue()
+        {
+            var currentProduct = new Product();
+            var expected = "Timber";
+            currentProduct.Category = "Timber";
+
+            var actual = currentProduct.Category;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void SequenceNumber_DefaultValue()
+        {
+            var currentProduct = new Product();
+            var expected = 1;
+
+            var actual = currentProduct.SequenceNumber;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ProductCode_DefaultValue()
+        {
+            var currentProduct = new Product();
+            var expected = $"{currentProduct.Category}-{currentProduct.SequenceNumber}";
+
+            var actual = currentProduct.ProductCode;
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
