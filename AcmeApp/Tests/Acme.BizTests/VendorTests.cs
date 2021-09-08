@@ -77,9 +77,9 @@ namespace Acme.Biz.Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void PlaceOrder_NullProduct_exception()
-        {            
+        {
             // Arrange
-            var vendor = new Vendor();            
+            var vendor = new Vendor();
 
             // Act
             var actual = vendor.PlaceOrder(null, 1);
@@ -111,6 +111,18 @@ namespace Acme.Biz.Tests
             // Assert
             Assert.AreEqual(expected.Success, actual.Success);
             Assert.AreEqual(expected.Message, actual.Message);
+        }
+
+        [TestMethod()]
+        public void PlaceOrderTest_WithAddress()
+        {
+            var vendor = new Vendor();
+            var product = new Product(1, "Saw", "");
+            OperationResult expected = new OperationResult(true, "Test With Address");
+
+            var actual = vendor.PlaceOrder(product, 1, true, false);
+
+            Assert.AreEqual(expected.Success, actual.Success);
         }
     }
 }
